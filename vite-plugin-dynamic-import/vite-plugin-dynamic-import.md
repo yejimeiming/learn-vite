@@ -55,7 +55,7 @@
 
 // router.tsx
 
-export configs = [
+export const configs = [
   {
     name: 'Foo',
     path: 'foo', // 文件路径
@@ -66,7 +66,7 @@ export configs = [
   },
 ]
 
-export routes = configs.map(config => ({
+export const routes = configs.map(config => ({
   ...config,
   component: import(`./pages/${config.path}`), // 无文件尾缀
   component: import(`@/pages/${config.path}`), // alias
