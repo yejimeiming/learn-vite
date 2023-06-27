@@ -40,7 +40,7 @@
 // resolve                /User/aotm/vite-project/src/pages/foo.tsx
 // ❌ bare - `antd/dist/${component}`
 // ❌ @/${path}
-``
+```
 
 ## 业务场景
 
