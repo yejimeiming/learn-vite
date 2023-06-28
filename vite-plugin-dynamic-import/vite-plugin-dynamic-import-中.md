@@ -1,4 +1,4 @@
-# vite-plugin-dynamic-import
+# vite-plugin-dynamic-import-中
 
 ## 核心解析器
 
@@ -87,3 +87,5 @@ import('ui-lib/styles/' + theme + '.css')
 ```
 
 ## 源码部分
+
+- vite-plugin-dynamic-import-下.md
