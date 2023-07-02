@@ -1,0 +1,27 @@
+{
+  "name": "vite-plugin-start",
+  "version": "0.0.1",
+  "description": "📚 Learn Vite plugin",
+  "main": "dist/index.js",
+  "repository": {
+    "url": "https://github.com/yejimeiming/learn-vite.git",
+    "directory": "vite-plugin-start"
+  },
+  "author": "野鸡没名 <asd308487730@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "dev": "vite"
+  },
+  "dependencies": {
+    "antd": "^5.6.3",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.3.3",
+    "@types/react": "^18.2.14",
+    "@types/react-dom": "^18.2.6",
+    "typescript": "^5.1.6",
+    "vite": "^4.3.9"
+  }
+}
