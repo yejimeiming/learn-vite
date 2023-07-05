@@ -4,7 +4,7 @@
 
 - 全局钩子 | https://vitejs.dev/guide/api-plugin.html#vite-specific-hooks
   1. `config` 修改默认配置
-  2. `configResolved` 获取加载后配置，方法
+  2. `configResolved` 获取加载后配置，方法(createResolver)
 
 - 局部钩子(文件钩子, module) | https://vitejs.dev/guide/api-plugin.html#universal-hooks
   1. `resolveId` 解析文件、虚拟模块路径

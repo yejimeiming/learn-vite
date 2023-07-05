@@ -1,5 +1,90 @@
 # Vite 插件入门(下)
 
+#### `resolveId` 与 `load`
+
+```js
+// vite.config.js
+export default {
+  // import jQuery from 'jquery'
+  plugins: [
+    {
+      enforce: 'pre',
+      name: 'vite-plugin-resolve',
+      resolveId(source) {},
+      load(id) {},
+    },
+    {
+      name: 'vite:resolve',
+      resolveId(source) {},
+      load(id) {},
+    },
+  ],
+}
+```
+
+```js
+           transformMiddleware
+             transformRequest
+                     │
+(vite-plugin-resolve)↓                         ┏——————————————————————————┓
+┏—————————————————————————————————————————┓    │    ┏—————————————————————————————————————————┓
+│ 1.                                      │    │    │ 3.                                      │
+│ resolveId(source) {                     │    │    │ load(id = '\0jquery') {                 │
+│   return '\0' + 'jquery'                │    ↑    │   return 'export default window.jQuery' │
+│ }                                       │    │    │ }                                       │
+┗—————————————————————————————————————————┛    │    ┗—————————————————————————————————————————┛
+                     │                         │                          │
+                     ┗—————— '\0jquery' ———————┛                          ┗——————————————————————> transform
+                     │                                                    │
+                     x                                                    x
+(vite:resolve)       ↓                         ↑                          ↓
+┏—————————————————————————————————————————┓    │    ┏—————————————————————————————————————————┓
+│ 2.                                      │    x    │ 4.                                      │
+│ resolveId(source) { }                   │    │    │ load(id) { }                            │
+┗—————————————————————————————————————————┛    │    ┗—————————————————————————————————————————┛
+                     ┗—————————————————————————┛                          ┗——————————————————————x
+```
+
+#### `transform`
+
+```js
+// vite.config.js
+export default {
+  // import { Button } from 'antd'
+  plugins: [
+    {
+      name: 'vite:esbuild',
+      transform(code, id) {},
+    },
+    {
+      name: 'vite-plugin-import-antd',
+      transform(code, id) {},
+    },
+  ],
+}
+```
+
+```js
+(vite:esbuild)
+┏————————————————————————————————————————————————┓
+│ 1.                                             │
+│ transform(code, id) {                          │
+│   return tsx -> js                             │
+│ }                                              │
+┗————————————————————————————————————————————————┛
+                          │
+(vite-plugin-import-antd) ↓
+┏————————————————————————————————————————————————┓
+│ 2.                                             │
+│ transform(code, id) {                          │
+│   return `import Button from 'antd/es/button'` │
+│ }                                              │
+┗————————————————————————————————————————————————┛
+                          │
+                          ↓ 
+                        send() - 结束
+```
+
 ## Vite 源码中内置插件运行机制剖析
 
 1. `serve` 特有的 Hook -- 网络钩子(`middleware`)
